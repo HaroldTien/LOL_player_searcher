@@ -1,0 +1,23 @@
+#searchInput{
+  width: 20rem;
+  height: 3rem;
+  font-size:larger;
+  border-radius: 5rem;
+  background-color: gray;
+}
+#searchButton{  
+  font-size: 20px;
+  height: 40px;
+  border-radius: 5rem;
+  background-color: purple;
+  color: white;
+}
+#regions-selector{
+  height: 40px;
+}
+.searcher-container{
+  margin: 0 auto;
+  width: 600px;
+  margin-top: 9rem;
+  align-content: center;
+}

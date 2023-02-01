@@ -1,0 +1,7 @@
+.gameslist{
+    list-style-type: none;
+}
+.gamecontent{
+    width: 300px;
+    height: 60px;
+}

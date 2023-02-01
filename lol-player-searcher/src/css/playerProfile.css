@@ -1,0 +1,10 @@
+.containter{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;      
+    flex-wrap: wrap;
+}
+.containter h3 [text]{
+    align-items: center;
+}
