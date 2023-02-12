@@ -16,7 +16,6 @@ const NavBar=(props)=>{
                     <Link to="/aiBP" >AI Ban Pick</Link>        
                 </li>
             </ul>
-            
         </nav>
     );
 }

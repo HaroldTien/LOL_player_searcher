@@ -14,7 +14,7 @@ class Data:
     
     def __init__(self,summonerName) -> None:
         self.summonerName=summonerName
-        self.API_key='RGAPI-aad6d9ec-20b1-4a7b-a6a1-d5c1013cac00'
+        self.API_key='RGAPI-51ffad23-f7f3-4bfa-afcc-13f08fdd6fe6'
 
     def getSummonerData(self):
         api_url='https://tw2.api.riotgames.com/lol/summoner/v4/summoners/by-name/'+self.summonerName+'?api_key='+self.API_key
@@ -65,7 +65,7 @@ data=Data('台服送頭交給我')
 
 # print(data.getSummonerData())
 # data.getMatchData(0)        
-print(data.getMatchData(0))
+print(data.getMatchData(1))
 # data.getMatchTimeline(0)
 # print(data.getSummonerData())
 

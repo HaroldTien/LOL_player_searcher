@@ -10,24 +10,22 @@ class MatchesList extends Component {
         super(props);
         this.state = {
             puuid:this.props.puuid,
-            matchesId_arr:null,
             matchesData_arr:new Array(),
+            pagesCounter:0,
         };
     }
-    getRankedData=async()=>{
+    
+
+    getRankedData=async(start)=>{
       let data={
-        matchesId_arr:new Array(10),
-        matchesData_arr:new Array(10)
+        matchesId_arr:new Array(),
+        matchesData_arr:new Array()
       }
-        const requestMatchesListUrl=`https://${Urls.getRealmRouter(this.props.region)}/lol/match/v5/matches/by-puuid/${this.props.summonerProfile.puuid}/ids?api_key=${this.props.API_KEY}&count=10`
+        const requestMatchesListUrl=`https://${Urls.getRealmRouter(this.props.region)}/lol/match/v5/matches/by-puuid/${this.props.summonerProfile.puuid}/ids?api_key=${this.props.API_KEY}&count=10&start=${start}`
         console.log(requestMatchesListUrl)
         try{
             const resp=await axios.get(requestMatchesListUrl);
             data.matchesId_arr=await resp.data; 
-        }catch(e){
-            console.log(e)
-        }
-        try{
             for(let i=0;i<data.matchesId_arr.length;i++){
                 const requestMatchDataUrl=`https://${Urls.getRealmRouter(this.props.region)}/lol/match/v5/matches/${data.matchesId_arr[i]}?api_key=${this.props.API_KEY}`;
                 const resp=await axios.get(requestMatchDataUrl);
@@ -36,12 +34,12 @@ class MatchesList extends Component {
         }catch(e){
             console.log(e)
         }
+        data.matchesData_arr=this.state.matchesData_arr.concat(data.matchesData_arr);
         this.setState(prev=>prev.matchesData_arr=data.matchesData_arr);
-        this.setState(prev=>prev.matchesId_arr=data.matchesId_arr)
     }
 
     componentWillMount () {
-        this.getRankedData();
+        this.getRankedData(0);
     }
     unicodeToChar(text) {
         return text.replace(/\\u[\dA-F]{4}/gi, 
@@ -62,25 +60,37 @@ class MatchesList extends Component {
         return(
             <div className='gamecontent' style={{backgroundColor:getSummonerMatchData().win===true?"blue":"red"}} >
                 {match.info.gameMode}
-                <img  width={20} height={20} src={Urls.champAvatar(getSummonerMatchData().championName)}></img>
+                <img  width={40} height={40} src={Urls.champAvatar(getSummonerMatchData().championName)}></img>
+                <p>{Math.floor(match.info.gameDuration/60)} minutes and {match.info.gameDuration%60} seconds</p>
             </div>  
         );
     }
-    
     render() {  
-
         return (
-          <div>
-            {this.state.matchesData_arr.map((match)=>{
-                return (
-                    <ul className='gameslist' key={match.info.gameId}>
-                        <li >
-                            {this.gameContent_component(match)}
-                        </li>
-                    </ul>
+          <div className='container'>
+            <div>
+                {this.state.matchesData_arr.map((match)=>{
+                    return (
+                        <ul className='gameslist' key={match.info.gameId}>
+                            <li >
+                                {this.gameContent_component(match)}
+                            </li>
+                        </ul>
+                    )
+                })}
+            </div>
 
-                )
-            })}
+            <div>
+                <button onClick={(e)=>{
+                    console.log(this.state.pagesCounter);
+                    e.currentTarget.disabled=true;
+                    this.setState(prev=>prev.pagesCounter=prev.pagesCounter+0.5,
+                        ()=>this.getRankedData(this.state.pagesCounter*10));
+                    e.currentTarget.disabled=false;    
+                    console.log(this.state.pagesCounter);
+                }}>more</button>
+                
+            </div>
           </div>
         );
     }

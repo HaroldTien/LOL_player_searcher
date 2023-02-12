@@ -1,6 +1,5 @@
 import React,{Component} from "react";
 import PlayerRank from "./playerRank";
-import MatchesList from "./MatchesList";
 import "../css/playerProfile.css"
 
 
@@ -24,12 +23,6 @@ class  PlayerProfile extends Component {
                     :
                     <PlayerRank playerRankInfo={this.props.playerRankInfo} />
                 }
-                <MatchesList 
-                    region={this.props.playerRegion} 
-                    summonerProfile={this.props.playerProfile}
-                    encryptedSummonerId={this.props.playerProfile.id}
-                    API_KEY={this.props.API_KEY}
-                />
             </div>
         );
     }

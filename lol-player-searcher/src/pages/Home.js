@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Urls from '../urls'
 import NavBar from "../components/NavBar";
 import '../css/home.css'
-const API_KEY='RGAPI-bb856fd5-eab7-46b6-ac0e-2463336741af';
+const API_KEY='RGAPI-51ffad23-f7f3-4bfa-afcc-13f08fdd6fe6';
 
 
 
