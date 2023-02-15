@@ -1,11 +1,11 @@
 
-import React,{Component, useEffect, useMemo, useState} from "react";
+import React,{useState} from "react";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import Urls from '../urls'
 import NavBar from "../components/NavBar";
 import '../css/home.css'
-const API_KEY='RGAPI-51ffad23-f7f3-4bfa-afcc-13f08fdd6fe6';
+const API_KEY='RGAPI-e9bdf9f1-aba5-416c-a78a-b3a7aca75609';
 
 
 

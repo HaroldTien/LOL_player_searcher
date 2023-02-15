@@ -57,18 +57,27 @@ class MatchesList extends Component {
                 }
             }
         }
+        const getDateFromUnixTime=()=>{
+            const date=new Date(match.info.gameStartTimestamp);
+            let hours=date.getHours().toString();
+            let minutes=date.getMinutes().toString();
+            let seconds=date.getSeconds().toString();
+            return `${date.toLocaleDateString('zh-TW')} ${hours}:${minutes}:${seconds}`;
+        }
         return(
             <div className='gamecontent' style={{backgroundColor:getSummonerMatchData().win===true?"blue":"red"}} >
                 {match.info.gameMode}
                 <img  width={40} height={40} src={Urls.champAvatar(getSummonerMatchData().championName)}></img>
                 <p>{Math.floor(match.info.gameDuration/60)} minutes and {match.info.gameDuration%60} seconds</p>
+                <p>{getDateFromUnixTime()}</p>
             </div>  
         );
     }
     render() {  
+        console.log(this.state.matchesData_arr.length)
         return (
-          <div className='container'>
-            <div>
+            <div className='container'>
+                <div>
                 {this.state.matchesData_arr.map((match)=>{
                     return (
                         <ul className='gameslist' key={match.info.gameId}>
@@ -78,20 +87,19 @@ class MatchesList extends Component {
                         </ul>
                     )
                 })}
-            </div>
+                </div>
 
-            <div>
-                <button onClick={(e)=>{
-                    console.log(this.state.pagesCounter);
-                    e.currentTarget.disabled=true;
-                    this.setState(prev=>prev.pagesCounter=prev.pagesCounter+0.5,
-                        ()=>this.getRankedData(this.state.pagesCounter*10));
-                    e.currentTarget.disabled=false;    
-                    console.log(this.state.pagesCounter);
-                }}>more</button>
-                
+                <div>{this.state.matchesData_arr.length!=0?
+                    <button onClick={(e)=>{
+                        console.log(this.state.pagesCounter);
+                        e.currentTarget.disabled=true;
+                        this.setState(prev=>prev.pagesCounter=prev.pagesCounter+0.5,
+                            ()=>this.getRankedData(this.state.pagesCounter*10));
+                        e.currentTarget.disabled=false;    
+                        console.log(this.state.pagesCounter);
+                    }}>more</button>:null
+                }</div>
             </div>
-          </div>
         );
     }
 }
